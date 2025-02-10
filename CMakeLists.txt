@@ -8,4 +8,4 @@ project(main)
 # aux_source_directory(c_learn SRC_LIST)
 #生成应用程序main，在windows下会自动生成main.exe。
 
-add_executable(main 01_data_type/main.c)
+add_executable(main 03_flow_control/main.c)
