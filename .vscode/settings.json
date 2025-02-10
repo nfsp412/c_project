@@ -1,0 +1,9 @@
+{
+    "cmake.sourceDirectory": "D:/c_project",
+    "cmake.debugConfig": {
+        "args": [
+            "--help",
+            "help info"
+        ]
+    }
+}
