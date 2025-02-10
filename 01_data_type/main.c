@@ -42,7 +42,7 @@ void forceTypeConversionFunc()
     float f1 = i / 2;
     float f2 = (float)i / 2;
     printf("f1 = %f\n", f1); // 2.000000 默认是整除的
-    printf("f2 = %f\n", f1); // 2.000000 强制类型转换??
+    printf("f2 = %f\n", f2); // 2.500000 强制类型转换
 }
 
 /**
