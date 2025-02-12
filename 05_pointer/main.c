@@ -269,7 +269,7 @@ char *func5()
 char *func6()
 {
     char *p;
-    p = (char *)malloc(20);
+    p = (char *)malloc(20);//字节数大小
     strcpy(p, "p2");
     puts(p);
     return p;
