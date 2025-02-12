@@ -8,6 +8,6 @@ project(main)
 # aux_source_directory(c_learn SRC_LIST)
 #生成应用程序main，在windows下会自动生成main.exe。
 
-add_executable(main 04_array/main.c)
+add_executable(main 05_pointer/main.c)
 
 target_compile_options(main PRIVATE "-std=c99")
