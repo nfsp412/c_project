@@ -29,5 +29,10 @@ int main()
     func2(p, q);
     printf("%d\n", *p); // 10
 
+    // 布尔类型
+    bool a = true;
+    bool b = false;
+    printf("a %d b %d \n", a, b);//true 1 false 0
+
     return 0;
 }
