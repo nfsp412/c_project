@@ -202,6 +202,16 @@ void func7()
     printf("%d\n", list->number); // 100
 }
 
+void func8(int *p)
+{
+    *p = *p + 1;
+}
+
+void func9(int **p, int *q)
+{
+    *p = q;
+}
+
 int main()
 {
     // 定义方法
@@ -223,5 +233,19 @@ int main()
     // func6();
 
     // typedef
-    func7();
+    // func7();
+
+    // 修改整数类型变量的值
+    int num = 10;
+    printf("before num = %d\n", num);
+    func8(&num);
+    printf("after num = %d\n", num);
+
+    // 修改指针
+    int *p = NULL;
+    int i = 10;
+    int *q = &i;
+    // 将p修改为q指向的地址
+    func9(&p, q);
+    printf("%d\n", *p); // 10
 }
