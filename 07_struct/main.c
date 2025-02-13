@@ -212,6 +212,18 @@ void func9(int **p, int *q)
     *p = q;
 }
 
+typedef struct User
+{
+    char username[20];
+    int password;
+} UserList;
+
+void init(UserList *p)
+{
+    strcpy(p->username, "admin");
+    p->password = 123456;
+}
+
 int main()
 {
     // 定义方法
@@ -235,17 +247,22 @@ int main()
     // typedef
     // func7();
 
-    // 修改整数类型变量的值
-    int num = 10;
-    printf("before num = %d\n", num);
-    func8(&num);
-    printf("after num = %d\n", num);
+    // // 修改整数类型变量的值
+    // int num = 10;
+    // printf("before num = %d\n", num);
+    // func8(&num);
+    // printf("after num = %d\n", num);
 
-    // 修改指针
-    int *p = NULL;
-    int i = 10;
-    int *q = &i;
-    // 将p修改为q指向的地址
-    func9(&p, q);
-    printf("%d\n", *p); // 10
+    // // 修改指针
+    // int *p = NULL;
+    // int i = 10;
+    // int *q = &i;
+    // // 将p修改为q指向的地址
+    // func9(&p, q);
+    // printf("%d\n", *p); // 10
+
+    // 演示结构体作为形参
+    UserList *u = (UserList *)malloc(sizeof(UserList));
+    init(u);
+    printf("%s %d \n", u->username, u->password); // admin 123456
 }
