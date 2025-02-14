@@ -33,10 +33,12 @@ void func1(char *&p)
 
 int main()
 {
-    char *p;
+    char *p = NULL;
     func1(p);
 
     printf("%s", p);
+
+    free(p);
 
     return 0;
 }
