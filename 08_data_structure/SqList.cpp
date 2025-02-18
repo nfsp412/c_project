@@ -18,7 +18,7 @@ void PrintSqList(SqList L)
 {
     for (int i = 0; i < L.length; i++)
     {
-        printf("%d\n", L.data[i]);
+        printf("%3d", L.data[i]);
     }
 }
 
@@ -31,7 +31,7 @@ void PrintSqList(SqList L)
  */
 bool InsertSqList(SqList &L, int i, ElemType e)
 {
-    if (L.length >= MaxSize || i < 1 || i > L.length + 1)
+    if (L.length == MaxSize || i < 1 || i > L.length + 1)
     {
         return false;
     }
@@ -65,7 +65,7 @@ bool DeleteSqList(SqList &L, int i, ElemType &e)
     e = L.data[i - 1];
 
     // 元素前移
-    for (int j = i; j <= L.length; j++)
+    for (int j = i; j < L.length; j++)
     {
         // 将 i + 1 位置上的元素移动到 i 的位置上
         // 对应的索引就是[j]->[j-1]
