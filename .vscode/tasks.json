@@ -1,34 +1,40 @@
 {
     "tasks": [
-        {   //Cmake active file 操作，要和launch.json里的"preLaunchTask"值对应一致。
-            "label": "Cmake active file", 
-            "dependsOn":[
+        { //Cmake active file 操作，要和launch.json里的"preLaunchTask"值对应一致。
+            "label": "Cmake active file",
+            "dependsOn": [
                 //Cmake active file操作依赖于下面的cmake和 make操作,也即调用下面两个标签label的操作。
-                "cmake", 
+                "cmake",
                 "make"
             ]
         },
         {
-            "label": "cmake",//cmake操作。
-            "type":"shell",           
-            "command":"cmake",//执行cmake操作所使用的命令。
-            "args": [                 //cmake命令执行时的命令行参数。
+            "label": "cmake", //cmake操作。
+            "type": "shell",
+            "command": "cmake", //执行cmake操作所使用的命令。
+            "args": [ //cmake命令执行时的命令行参数。
                 "-G MinGW Makefiles", //生成 mingw32-make 能够编译的Makefile。
                 "../"
             ],
         },
         {
-            "label": "make",              //make 操作。
-            "command":"mingw32-make.exe", //执行 make 操作所使用的命令(mingw32-make.exe已经添加了环境变量)。
-            "args": [
-            ],
+            "label": "make", //make 操作。
+            "command": "mingw32-make.exe", //执行 make 操作所使用的命令(mingw32-make.exe已经添加了环境变量)。
+            "args": [],
             "options": {
                 "cwd": "${workspaceFolder}\\build" //表示执行当前操作的工作目录。
             }
         },
+        //能够输入参数的调试方式,开启调试方法,直接F5,不使用cmake的方式
+        {
+            "label": "Open Terminal",
+            "type": "shell",
+            "command": "osascript -e 'tell application \"Terminal\"\ndo script \"echo hello\"\nend tell'",
+            "problemMatcher": []
+        }
     ],
     "version": "2.0.0",
     "options": {
-        "cwd": "${workspaceFolder}\\build"  //表示执行上述操作时的工作目录。
+        "cwd": "${workspaceFolder}\\build" //表示执行上述操作时的工作目录。
     },
 }

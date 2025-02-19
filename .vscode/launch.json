@@ -14,7 +14,7 @@
         //下面也可以用${workspaceFolder},表示工作台下的路径,这个值不需要打开文件来确定路径。
         "cwd": "${workspaceFolder}",
         "environment": [],
-        "externalConsole": false,
+        "externalConsole": true, //能够输入参数的调试方式,开启调试方法,直接F5,不使用cmake的方式
         "MIMode": "gdb",
         "miDebuggerPath": "D:\\programs\\MinGW\\bin\\gdb.exe",
         "setupCommands": [
