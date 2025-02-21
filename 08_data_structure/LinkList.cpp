@@ -92,7 +92,7 @@ LinkList ListTailInsert(LinkList &L)
         scanf("%d", &x);
     }
 
-    r->next = NULL; // 最终结束后,尾部节点的next指向null
+    r->next = NULL; // 最终结束后,尾部节点的next指向null,是r.next而不是L.next,因为r此时在尾部尾节点,而L是整个链表不能使用L.next
 
     return L;
 }
@@ -186,6 +186,46 @@ bool ListFrontInsert(LinkList &L, int i, ElemType e)
     return true;
 }
 
+/**
+ * 根据位置i删除节点数据
+ * i范围 i>=1
+ */
+bool ListDelete(LinkList &L, int i, ElemType &e)
+{
+    //找到i-1位置的节点
+    LNode *p = GetElem(L, i - 1);
+
+    //如果节点为null,代表没找到
+    if (p == NULL)
+    {
+        return false;
+    }
+
+    //定义结构体指针存储被删除的节点信息
+    LNode *s;
+
+    //将i位置节点赋值给s,即被删除节点
+    s = p->next;
+
+    //返回被删除的数据
+    e = s->data;
+
+    //假设删除i=6,i-1=5,即p=5,而p.next=null,单链表节点数量正好是5,那我们想要删除i=6的元素是错误的,所以这里返回false
+    if (s == NULL)
+    {
+        return false;
+    }
+    
+    //将i-1位置的下一节点,不再指向i,而是指向i+1
+    p->next = s->next;
+
+    //注意释放掉被删除节点的数据,如果要返回被删除的数据,可以使用引用返回
+    free(s);
+
+    return true;
+    
+}
+
 int main()
 {
     LinkList L;
@@ -213,6 +253,11 @@ int main()
     // }
 
     ListFrontInsert(L, 2, 100);
+    ListPrint(L);
+
+    int e;
+    ListDelete(L, 3, e);
+    printf("%d\n", e);
     ListPrint(L);
 
     return 0;
