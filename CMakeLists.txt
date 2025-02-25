@@ -9,7 +9,8 @@ project(main CXX)
 # aux_source_directory(c_learn SRC_LIST)
 #生成应用程序main，在windows下会自动生成main.exe。
 
-add_executable(main 00_oj/t21.cpp)
+add_executable(main 08_data_structure/BiTree.cpp 08_data_structure/function.h 08_data_structure/queue.cpp)
+# add_executable(main 08_data_structure/LinkQueue.cpp)
 
 #C++时下面这行要去掉
 # target_compile_options(main PRIVATE "-std=c99")
