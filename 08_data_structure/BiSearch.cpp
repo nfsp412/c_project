@@ -90,10 +90,11 @@ int BiSearch(SeqList L, int e)
 
 int main()
 {
+    //6个元素找第二个的时候,就可以演示low=high也要进入循环这种情况
     SeqList L;
-    InitList(L, 10);
+    InitList(L, 6);
 
-    qsort(L.elem, 10, sizeof(int), compare);
+    qsort(L.elem, 6, sizeof(int), compare);
 
     PrintList(L);
 

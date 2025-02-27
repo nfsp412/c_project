@@ -80,4 +80,6 @@ A A A
 B A A
 B A B
 A A B
-
+A B A
+A A B !B
+B A A A
