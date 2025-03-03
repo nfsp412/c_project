@@ -110,8 +110,17 @@ void QuickSort(int *arr, int low, int high)
     {
         // 找到low和high相遇时所在的分割点
         // 对于升序排列,要保证pos左边的数据小于分割点数据,右边的数据大于分割点的数据
-        // int pos = Partition(arr, low, high);
-        int pos = Partition_(arr, low, high);
+        int pos = Partition(arr, low, high);
+        // int pos = Partition_(arr, low, high);
+        
+        printf("first\n");
+        for (int i = 0; i < 10; i++)
+        {
+            printf("%3d", arr[i]);
+        }
+        printf("\n");
+        return ;
+
         // 针对左边和右边各自再次递归调用快排方法,分治
         QuickSort(arr, low, pos - 1);
         QuickSort(arr, pos + 1, high);
