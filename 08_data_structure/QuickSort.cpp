@@ -5,6 +5,10 @@
 
 // 快速排序,也是交换排序的一种
 
+// 时间复杂度 最好平均O(nlogn) 最坏情况O(n2)
+// 空间复杂度 O(logn)
+// 不稳定,算法复杂
+
 typedef struct
 {
     int *elem;
