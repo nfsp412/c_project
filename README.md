@@ -186,3 +186,17 @@ IIIOOIOO OK
 
 ### 3.4.5
 1D 2C !3B/A 4D 5A 6B 7C 8B 9B 10D 11B 12A 13A 14C 15B 16A
+
+### 4.2.4
+1C 2B 3CD 4D 5B 6C !7C !8C/B 9C 10B 11C 12B !13B/A
+二.1
+2.
+aabaabaabaac
+aabaac
+next
+012123
+(2)
+    aabaa baa baac
+1   aabaa c
+2      aa baa c
+3          aa baac
