@@ -1,0 +1,136 @@
+# c语言入门习题
+
+A A A B A 
+A B A A A 
+A A A A B A 
+A A A
+A B A A
+A A B A A
+B A B A B 
+A A B 
+A A B
+B B A
+A A A
+B A B!
+A A B A
+B B B!
+A A A
+A B A B
+A A A
+B A A
+B A B
+A A B
+A B A
+A A B !B
+B A A A
+!A A A
+A A B A 
+A A A
+A A B
+A B B 
+!A A B
+
+# 408教材习题
+
+### 1.1.3
+1D 2A 3C 4A 5C 
+1可以相同，例如二叉树和二叉排序树，逻辑结构和物理结构相同，但是数据的运算不同，导致是不同的数据结构 
+2比如线性表查找元素，在顺序存储时效率高，在链式存储时效率低
+
+### 1.2.3
+1B 2C 3C 4B 5D 6D 7C 8!D 9A 10A 11C 12A 13B 14C 15B 16B 17!B 
+1O（n） O（n^1/2） ! O（n*m）
+
+### 2.1.3
+1C 2B 3A 4A 
+
+### 2.2.3
+1A 2C 3A 4C 5B 6D 7A 8C 9C 10C 11C 12C 13B 14!D 15D 
+综合应用题详见代码
+
+### 2.3.7 
+1B 2B !3C/A 4D 5A 6C !7B/D 8C 9C 10B 11BA !12B/D 13B 14C 15D 16A 17A 18C 19B 20D !21A/C 22D !23C/A !24D/C 25B 26A 27D 28D 29D 30B !31A/B 32D 33D 34D 35C 36D
+综合应用题详见代码
+
+### 3.1.4
+!1C/B 2C 3B 4C 5B 6A 7A 8A !9D/C 10C 11D !12B/A 13B 14D !15B/A 16D 17D !18A/D 19C 20C !21B/A !22BC?C !23?C !24B?B 25A 26C 27D !28?B !29?C 30D !31?D
+二.01. 
+CDEBA
+CDBEA
+CDBAE
+02.
+ABBCCADEED OK
+ABCDD No
+03.
+IOIIOIOO No 因为题目要求栈空
+IOO No
+IIIOIOIO OK
+IIIOOIOO OK
+04.见[text](08_data_structure/LinkList1.cpp)
+05.
+
+### 3.2.5 
+1D 2B 3D 4B 5D !6A/C 7B 8D 9C 10A !11A/D 12B 13A 14A !15A/D 16D !17B/A 18B 19C 20C 21B 22A 23C 24D
+
+### 3.3.6
+1D 2B 3D 4B 5B 6C 7C 8B 9C 10B 11A 12B 13A 14B 15A !16B/C 17C 18B 19A
+
+### 3.4.5
+1D 2C !3B/A 4D 5A 6B 7C 8B 9B 10D 11B 12A 13A 14C 15B 16A
+
+### 4.2.4
+1C 2B 3CD 4D 5B 6C !7C !8C/B 9C 10B 11C 12B !13B/A
+二.1
+2.
+aabaabaabaac
+aabaac
+next
+012123
+（2）
+    aabaa baa baac
+1   aabaa c
+2      aa baa c
+3          aa baac
+
+### 5.1.4
+1D !2A 3A 4A 5A 6C !7B/D !8D !9B !10C
+二
+1.`[`log3（2n+1）`]`取整
+2.
+n=1+4+2*3+3*2+4n4=14+4+3+2+n4
+17+4n4=23+n4
+n4=2
+n=25
+3.
+n=1+n1+2n2+3n3...mnm=n0+n1+n2+n3...nm
+n0=1+n2+2n3...（m-1）nm
+=∑（i-1）ni
+
+### 5.2.3
+!1C 2C !3D/A 4B 5B !6C/D 7C 8C !9A/C !10B/C 11C !12C/A 13A !14B/D !15B/C 16B 
+17C 18B !19C/A 20A 21C 22C 23B 24D 25C 26C 27A 28A 29C
+二.
+01.
+n1=1时,n=n0+n1+n2=n0+1+n0-1=2n0
+h=log_2 2n0 向下取整 + 1=
+n1=0时,n=n0+n1+n2=n0+0+n0-1=2n0-1
+h=log_2 2n0-1+1 向上取整 = log_2 2n0 向上取整
+02.
+n1=0
+n=n0+n1+n2=n0+0+n0-1=2n0-1
+n0=n+1 / 2
+n2=n0-1=n+1 / 2 - 1 = n-1 / 2
+n=2^h - 1 所以h=log_2 n+1 
+03.
+若一共9层,则n=1+2+4+8+16+32+64+128+240=495,叶子结点=248
+04.
+见笔记
+05.
+06.
+
+### 5.3.3
+!1D/C结论 2C 3C !4D 5C 6B 7C 8B 9D !10D/C 11C 12C !13B 14D 15B 16D
+17A 18B 19B 20C !21A/B 22A 23跳过 24C 25C !26D 27D 28D !29C
+30A !31D/C !32C/B 33D 34D 35D !36D/C !37C/A 38A 39D 40B 41B 42B 43B
+44A 45A
+
