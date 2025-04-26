@@ -326,3 +326,312 @@ void SetEdgeValue_1(ALGraph G, int x, int y, int val)
 {
 }
 
+// 前置
+typedef struct LNode
+{
+    int data; // 存储顶点编号
+    struct LNode *next;
+} LNode;
+
+typedef struct
+{
+    LNode *front, *rear;
+} LinkQueue;
+
+// 函数声明:一些常用的单链表的队列的方法
+void InitQueue(LinkQueue &Q)
+{
+    Q.front = Q.rear = (LNode *)malloc(sizeof(LNode));
+
+    Q.front->next = NULL;
+}
+
+bool isEmpty(LinkQueue Q)
+{
+    if (Q.front == Q.rear)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void EnQueue(LinkQueue &Q, int e)
+{
+    LNode *p = (LNode *)malloc(sizeof(LNode));
+
+    p->data = e;
+
+    p->next = NULL;
+
+    Q.rear->next = p;
+
+    Q.rear = p;
+}
+
+bool DeQueue(LinkQueue &Q, int &e)
+{
+    if (Q.front == Q.rear)
+    {
+        return false;
+    }
+
+    LNode *p = Q.front->next; // 跳过头结点
+
+    e = p->data;
+
+    Q.front->next = p->next;
+
+    // 多一步重要的判断
+    if (Q.rear == p)
+    {
+        Q.rear = Q.front; // 让rear指向front而不是front指向rear,
+    }
+
+    free(p);
+
+    return true;
+}
+
+// 广度优先遍历 BFS
+bool visited[MaxVertexNum]; // 存储访问过的结点
+
+/**
+ * 打印顶点结点数据
+ */
+void visit(VNode v)
+{
+    printf("%4c", v.data);
+}
+
+/**
+ * @param v 代表出发的顶点编号
+ */
+void BFS(ALGraph G, int v)
+{
+    visit(G.vertices[v]); // 访问顶点结点,打印数据
+    visited[v] = true;    // 标记已访问结点
+
+    LinkQueue Q;
+    InitQueue(Q); // 初始化辅助队列
+
+    EnQueue(Q, v); // 首个顶点入队
+
+    while (!isEmpty(Q))
+    {
+        DeQueue(Q, v); // 出队
+
+        int w;
+        for (w = FirstNeighbor_1(G, v); w >= 0; w = NextNeighbor_1(G, v, w))
+        {
+            if (!visited[w])
+            {
+                // 代表w结点没有访问过
+                visit(G.vertices[w]);
+                visited[w] = true;
+
+                EnQueue(Q, w); // v的邻结点w入队
+            }
+        }
+    }
+}
+
+void BFSTraverse(ALGraph G)
+{
+    for (int i = 1; i <= G.vexnum; i++)
+    {
+        visited[i] = false; // 初始化全部为false
+    }
+
+    for (int i = 1; i <= G.vexnum; i++)
+    {
+        if (!visited[i])
+        {
+            BFS(G, i); // 这里为了解决非连通图的遍历
+            printf("\n");
+        }
+    }
+}
+
+
+// 手动构建1
+void init1(ALGraph &G)
+{
+    ArcNode *a1 = (ArcNode *)malloc(sizeof(ArcNode));
+    a1->adjvex = 2;
+    ArcNode *a2 = (ArcNode *)malloc(sizeof(ArcNode));
+    a2->adjvex = 5;
+    a1->next = a2;
+    a2->next = NULL;
+    ArcNode *b1 = (ArcNode *)malloc(sizeof(ArcNode));
+    b1->adjvex = 1;
+    ArcNode *b2 = (ArcNode *)malloc(sizeof(ArcNode));
+    b2->adjvex = 6;
+    b1->next = b2;
+    b2->next = NULL;
+    ArcNode *c1 = (ArcNode *)malloc(sizeof(ArcNode));
+    c1->adjvex = 4;
+    ArcNode *c2 = (ArcNode *)malloc(sizeof(ArcNode));
+    c2->adjvex = 6;
+    ArcNode *c3 = (ArcNode *)malloc(sizeof(ArcNode));
+    c3->adjvex = 7;
+    c1->next = c2;
+    c2->next = c3;
+    c3->next = NULL;
+    ArcNode *d1 = (ArcNode *)malloc(sizeof(ArcNode));
+    d1->adjvex = 3;
+    ArcNode *d2 = (ArcNode *)malloc(sizeof(ArcNode));
+    d2->adjvex = 7;
+    ArcNode *d3 = (ArcNode *)malloc(sizeof(ArcNode));
+    d3->adjvex = 8;
+    d1->next = d2;
+    d2->next = d3;
+    d3->next = NULL;
+    ArcNode *e1 = (ArcNode *)malloc(sizeof(ArcNode));
+    e1->adjvex = 1;
+    e1->next = NULL;
+    ArcNode *f1 = (ArcNode *)malloc(sizeof(ArcNode));
+    f1->adjvex = 2;
+    ArcNode *f2 = (ArcNode *)malloc(sizeof(ArcNode));
+    f2->adjvex = 3;
+    ArcNode *f3 = (ArcNode *)malloc(sizeof(ArcNode));
+    f3->adjvex = 7;
+    f1->next = f2;
+    f2->next = f3;
+    f3->next = NULL;
+    ArcNode *g1 = (ArcNode *)malloc(sizeof(ArcNode));
+    g1->adjvex = 3;
+    ArcNode *g2 = (ArcNode *)malloc(sizeof(ArcNode));
+    g2->adjvex = 4;
+    ArcNode *g3 = (ArcNode *)malloc(sizeof(ArcNode));
+    g3->adjvex = 6;
+    ArcNode *g4 = (ArcNode *)malloc(sizeof(ArcNode));
+    g4->adjvex = 8;
+    g1->next = g2;
+    g2->next = g3;
+    g3->next = g4;
+    g4->next = NULL;
+    ArcNode *h1 = (ArcNode *)malloc(sizeof(ArcNode));
+    h1->adjvex = 4;
+    ArcNode *h2 = (ArcNode *)malloc(sizeof(ArcNode));
+    h2->adjvex = 7;
+    h1->next = h2;
+    h2->next = NULL;
+    G.vertices[1].first = a1;
+    G.vertices[1].data = 'A';
+    G.vertices[2].first = b1;
+    G.vertices[2].data = 'B';
+    G.vertices[3].first = c1;
+    G.vertices[3].data = 'C';
+    G.vertices[4].first = d1;
+    G.vertices[4].data = 'D';
+    G.vertices[5].first = e1;
+    G.vertices[5].data = 'E';
+    G.vertices[6].first = f1;
+    G.vertices[6].data = 'F';
+    G.vertices[7].first = g1;
+    G.vertices[7].data = 'G';
+    G.vertices[8].first = h1;
+    G.vertices[8].data = 'H';
+
+    G.vexnum = 8;
+    G.arcnum = 10;
+}
+
+// 非连通图构建
+void init2(ALGraph &G)
+{
+    ArcNode *a1 = (ArcNode *)malloc(sizeof(ArcNode));
+    a1->adjvex = 10;
+    ArcNode *a2 = (ArcNode *)malloc(sizeof(ArcNode));
+    a2->adjvex = 11;
+    a1->next = a2;
+    a2->next = NULL;
+    ArcNode *b1 = (ArcNode *)malloc(sizeof(ArcNode));
+    b1->adjvex = 9;
+    ArcNode *b2 = (ArcNode *)malloc(sizeof(ArcNode));
+    b2->adjvex = 11;
+    b1->next = b2;
+    b2->next = NULL;
+    ArcNode *c1 = (ArcNode *)malloc(sizeof(ArcNode));
+    c1->adjvex = 9;
+    ArcNode *c2 = (ArcNode *)malloc(sizeof(ArcNode));
+    c2->adjvex = 11;
+    c1->next = c2;
+    c2->next = NULL;
+    G.vertices[9].first = a1;
+    G.vertices[9].data = 'I';
+    G.vertices[10].first = b1;
+    G.vertices[10].data = 'J';
+    G.vertices[11].first = c1;
+    G.vertices[11].data = 'K';
+
+    G.vexnum += 3;
+    G.arcnum += 3;
+}
+
+
+
+// 深度优先遍历 DFS
+void DFS(ALGraph G, int v)
+{
+    visit(G.vertices[v]);
+    visited[v] = true;
+
+    int w;
+    for (w = FirstNeighbor_1(G, v); w >= 0; w = NextNeighbor_1(G, v, w))
+    {
+        if (!visited[w])
+        {
+            // 代表w结点没有访问过
+            DFS(G, w); // 递归深度
+        }
+    }
+}
+
+void DFSTraverse(ALGraph G)
+{
+    for (int i = 1; i <= G.vexnum; i++)
+    {
+        visited[i] = false; // 初始化全部为false
+    }
+
+    for (int i = 1; i <= G.vexnum; i++)
+    {
+        if (!visited[i])
+        {
+            DFS(G, i); // 这里为了解决非连通图的遍历
+            printf("\n");
+        }
+    }
+}
+
+
+int main()
+{
+    // 手动构建
+    ALGraph G;
+    init1(G);
+
+    // printf("%d",FirstNeighbor_1(G, 8));
+    // printf("%d",NextNeighbor_1(G, 5, 1));
+
+    // A   B   E   F   C   G   D   H
+    // 1   2   5   6   3   7   4   8
+    // BFSTraverse(G);
+
+    // 非连通图
+    //  A   B   E   F   C   G   D   H   I   J   K
+    //  1   2   5   6   3   7   4   8   9   10  11
+    init2(G);
+    // BFSTraverse(G);
+
+    // A   B   F   C   D   G   H   E   I   J   K
+    // 1   2   6   3   4   7   8   5   9   10  11
+    DFSTraverse(G);
+
+    
+    return 0;
+}
