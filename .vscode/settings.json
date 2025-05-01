@@ -1,9 +1,12 @@
 {
-    "cmake.sourceDirectory": "D:/c_project",
+    "cmake.sourceDirectory": "C:\\Users\\nfsp4\\Documents\\c_project",
     "cmake.debugConfig": {
         "args": [
             "--help",
             "help info"
         ]
-    }
+    },
+    "C_Cpp.errorSquiggles": "enabled",
+    "files.autoSave": "onFocusChange",
+    "editor.mouseWheelZoom": true
 }
