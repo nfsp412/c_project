@@ -69,6 +69,28 @@ int SearchSeq(SSTable ST, int key)
     
 }
 
+// 顺序查找(王道书上的写法)
+int Search_Seq(SSTable ST, int key)
+{
+    int i;
+    for (i = 0; i < ST.length && ST.elem[i] != key; i++)
+    {
+        return i == ST.length ? -1 : i;
+    }
+}
+
+// 顺序查找,带哨兵(王道书上的写法)
+int Search_Seq_i(SSTable ST, int key)
+{
+    // 哨兵存储在数组索引0的位置
+    ST.elem[0] = key;
+    int i;
+    for (i = ST.length; i < ST.elem[i] != key; i--)
+    {
+        return i; // 返回0代表失败(哨兵)
+    }
+}
+
 void TestInit(SSTable &ST, int len)
 {
     ST.length = len + 1;
