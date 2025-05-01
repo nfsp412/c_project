@@ -120,6 +120,7 @@ typedef struct
  */
 bool Adjacent(MGraph G, int x, int y)
 {
+    return true;
 }
 
 /**
@@ -128,6 +129,7 @@ bool Adjacent(MGraph G, int x, int y)
  */
 void Neighbors(MGraph G, int x)
 {
+
 }
 
 /**
@@ -138,6 +140,7 @@ void Neighbors(MGraph G, int x)
  */
 void InsertVertex(MGraph G, int x)
 {
+
 }
 
 /**
@@ -150,6 +153,7 @@ void InsertVertex(MGraph G, int x)
  */
 void DeleteVertex(MGraph G, int x)
 {
+
 }
 
 /**
@@ -160,6 +164,7 @@ void DeleteVertex(MGraph G, int x)
  */
 void AddEdge(MGraph G, int x, int y)
 {
+
 }
 
 /**
@@ -213,6 +218,7 @@ void SetEdgeValue(MGraph G, int x, int y, int val)
  */
 bool Adjacent_1(ALGraph G, int x, int y)
 {
+    return true;
 }
 
 /**
@@ -225,6 +231,7 @@ bool Adjacent_1(ALGraph G, int x, int y)
  */
 void Neighbors_1(ALGraph G, int x)
 {
+
 }
 
 /**
@@ -234,6 +241,7 @@ void Neighbors_1(ALGraph G, int x)
  */
 void InsertVertex_1(ALGraph G, int x)
 {
+
 }
 
 /**
@@ -249,6 +257,7 @@ void InsertVertex_1(ALGraph G, int x)
  */
 void DeleteVertex_1(ALGraph G, int x)
 {
+
 }
 
 /**
@@ -259,6 +268,7 @@ void DeleteVertex_1(ALGraph G, int x)
  */
 void AddEdge_1(ALGraph G, int x, int y)
 {
+
 }
 
 /**
@@ -315,6 +325,7 @@ int NextNeighbor_1(ALGraph G, int x, int y)
  */
 void GetEdgeValue_1(ALGraph G, int x, int y)
 {
+
 }
 
 /**
@@ -324,6 +335,7 @@ void GetEdgeValue_1(ALGraph G, int x, int y)
  */
 void SetEdgeValue_1(ALGraph G, int x, int y, int val)
 {
+    
 }
 
 // 前置
@@ -455,6 +467,251 @@ void BFSTraverse(ALGraph G)
     }
 }
 
+#define MaxSize 10
+
+typedef struct
+{
+    char data[MaxSize];
+    int top; // 指向栈顶,一般0开始
+} SqStack;
+
+void InitStack(SqStack &S)
+{
+    S.top = -1; // 初始化
+}
+
+bool Push(SqStack &S, char x)
+{
+    // 数组最大元素索引应该是MaxSize-1
+    if (S.top == MaxSize - 1)
+    {
+        return false;
+    }
+    S.top++;           // 先移动top
+    S.data[S.top] = x; // 再赋值
+    return true;
+}
+
+bool Pop(SqStack &S, char &x)
+{
+    if (S.top == -1)
+    {
+        return false; // 代表栈空
+    }
+    x = S.data[S.top];
+    S.top--;
+
+    return true; // 代表出栈成功
+}
+
+bool isEmpty(SqStack S)
+{
+    if (S.top == -1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+typedef struct
+{
+    int data[MaxSize];
+    int top; // 指向栈顶,一般0开始
+} SqStack_int;
+
+void InitStack_int(SqStack_int &S)
+{
+    S.top = -1; // 初始化
+}
+
+bool Push_int(SqStack_int &S, int x)
+{
+    // 数组最大元素索引应该是MaxSize-1
+    if (S.top == MaxSize - 1)
+    {
+        return false;
+    }
+    S.top++;           // 先移动top
+    S.data[S.top] = x; // 再赋值
+    return true;
+}
+
+bool Pop_int(SqStack_int &S, int &x)
+{
+    if (S.top == -1)
+    {
+        return false; // 代表栈空
+    }
+    x = S.data[S.top];
+    S.top--;
+
+    return true; // 代表出栈成功 
+}
+
+bool isEmpty_int(SqStack_int S)
+{
+    if (S.top == -1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+// 拓扑排序
+bool TopologicalSort(ALGraph G)
+{
+    // indegree数组,记录所有节点的入度
+    // mock数据
+    int indegree[5] = {0, 1, 0, 2, 2};
+
+    // 映射数组
+    // mock数据
+    int B[100];
+    B['A'] = 0;
+    B['B'] = 1;
+    B['C'] = 2;
+    B['D'] = 3;
+    B['E'] = 4;
+
+    // print数组,记录拓扑排序
+    char print[5];
+
+    SqStack S;
+    InitStack(S);
+
+    for (int i = 0; i < G.vexnum; i++)
+    {
+        if (indegree[i] == 0)
+        {
+
+            Push(S, G.vertices[i].data); // 入度为0的顶点入栈
+        }
+    }
+    int count = 0; // 记录输出的顶点数量
+    char c;
+    int tmp_i;
+    while (!isEmpty(S))
+    {
+        Pop(S, c); // 出栈
+
+        // 映射
+        tmp_i = B[c];
+
+        // print数组来记录拓扑排序
+        print[count] = c;
+        count++;
+
+        ArcNode *p;
+        for (p = G.vertices[tmp_i].first; p; p = p->next)
+        {
+            // 依次遍历找到下一个邻接顶点
+            int v = p->adjvex;
+            if (!(--indegree[v])) // 入度减一的操作相当于逻辑上删除了某个节点
+            {
+                Push(S, G.vertices[v].data);
+            }
+        }
+    }
+
+    if (count < G.vexnum)
+    {
+        // 有回路
+        return false;
+    }
+    else
+    {
+
+        // 打印print数组
+        for (int i = 0; i < 5; i++)
+        {
+            printf("%4c", print[i]);
+        }
+        printf("\n");
+
+        return true;
+    }
+}
+
+// 逆向拓扑排序
+bool TopologicalSortReverse(ALGraph G)
+{
+    // outdegree数组,记录所有节点的出度
+    //  mock数据
+    int outdegree[5] = {1, 1, 2, 1, 0};
+
+    // 映射数组
+    // mock数据
+    int B[100];
+    B['A'] = 0;
+    B['B'] = 1;
+    B['C'] = 2;
+    B['D'] = 3;
+    B['E'] = 4;
+
+    // print数组,记录拓扑排序
+    char print[5];
+
+    SqStack S;
+    InitStack(S);
+
+    for (int i = 0; i < G.vexnum; i++)
+    {
+        if (outdegree[i] == 0)
+        {
+
+            Push(S, G.vertices[i].data); // 入度为0的顶点入栈
+        }
+    }
+    int count = 0; // 记录输出的顶点数量
+    char c;
+    int tmp_i;
+    while (!isEmpty(S))
+    {
+        Pop(S, c); // 出栈
+
+        // 映射
+        tmp_i = B[c];
+
+        // print数组来记录拓扑排序
+        print[count] = c;
+        count++;
+
+        ArcNode *p;
+        for (p = G.vertices[tmp_i].first; p; p = p->next)
+        {
+            // 依次遍历找到下一个邻接顶点
+            int v = p->adjvex;
+            if (!(--outdegree[v])) // 入度减一的操作相当于逻辑上删除了某个节点
+            {
+                Push(S, G.vertices[v].data);
+            }
+        }
+    }
+
+    if (count < G.vexnum)
+    {
+        // 有回路
+        return false;
+    }
+    else
+    {
+
+        // 打印print数组
+        for (int i = 0; i < 5; i++)
+        {
+            printf("%4c", print[i]);
+        }
+        printf("\n");
+
+        return true;
+    }
+}
 
 // 手动构建1
 void init1(ALGraph &G)
@@ -572,7 +829,72 @@ void init2(ALGraph &G)
     G.arcnum += 3;
 }
 
+// 拓扑排序mock
+void init3(ALGraph &G)
+{
+    ArcNode *a1 = (ArcNode *)malloc(sizeof(ArcNode));
+    a1->adjvex = 1;
+    a1->next = NULL;
+    ArcNode *b1 = (ArcNode *)malloc(sizeof(ArcNode));
+    b1->adjvex = 3;
+    b1->next = NULL;
+    ArcNode *c1 = (ArcNode *)malloc(sizeof(ArcNode));
+    c1->adjvex = 3;
+    ArcNode *c2 = (ArcNode *)malloc(sizeof(ArcNode));
+    c2->adjvex = 4;
+    c1->next = c2;
+    c2->next = NULL;
+    ArcNode *d1 = (ArcNode *)malloc(sizeof(ArcNode));
+    d1->adjvex = 4;
+    d1->next = NULL;
+    G.vertices[0].first = a1;
+    G.vertices[0].data = 'A';
+    G.vertices[1].first = b1;
+    G.vertices[1].data = 'B';
+    G.vertices[2].first = c1;
+    G.vertices[2].data = 'C';
+    G.vertices[3].first = d1;
+    G.vertices[3].data = 'D';
+    G.vertices[4].first = NULL;
+    G.vertices[4].data = 'E';
 
+    G.vexnum = 5;
+    G.arcnum = 5;
+}
+
+// 逆向拓扑排序mock数据
+void init4(ALGraph &G)
+{
+    ArcNode *a1 = (ArcNode *)malloc(sizeof(ArcNode));
+    a1->adjvex = 0;
+    a1->next = NULL;
+    ArcNode *b1 = (ArcNode *)malloc(sizeof(ArcNode));
+    b1->adjvex = 2;
+    ArcNode *b2 = (ArcNode *)malloc(sizeof(ArcNode));
+    b2->adjvex = 1;
+    b1->next = b2;
+    b2->next = NULL;
+    ArcNode *c1 = (ArcNode *)malloc(sizeof(ArcNode));
+    c1->adjvex = 3;
+    ArcNode *c2 = (ArcNode *)malloc(sizeof(ArcNode));
+    c2->adjvex = 2;
+    c1->next = c2;
+    c2->next = NULL;
+
+    G.vertices[0].first = NULL;
+    G.vertices[0].data = 'A';
+    G.vertices[1].first = a1;
+    G.vertices[1].data = 'B';
+    G.vertices[2].first = NULL;
+    G.vertices[2].data = 'C';
+    G.vertices[3].first = b1;
+    G.vertices[3].data = 'D';
+    G.vertices[4].first = c1;
+    G.vertices[4].data = 'E';
+
+    G.vexnum = 5;
+    G.arcnum = 5;
+}
 
 // 深度优先遍历 DFS
 void DFS(ALGraph G, int v)
@@ -608,6 +930,41 @@ void DFSTraverse(ALGraph G)
     }
 }
 
+// DFS实现逆向拓扑排序(不使用逆向邻接表),将输出语句移动到退出递归前面,即执行输出语句后立即退出递归
+bool visited1[5];
+
+void DFS1(ALGraph G, int v)
+{
+    visited1[v] = true;
+
+    int w;
+    for (w = FirstNeighbor_1(G, v); w >= 0; w = NextNeighbor_1(G, v, w))
+    {
+        if (!visited1[w])
+        {
+            // 代表w结点没有访问过
+            DFS1(G, w); // 递归深度
+        }
+    }
+
+    visit(G.vertices[v]);
+}
+
+void TopologicalSortReverse_DFS(ALGraph G)
+{
+    for (int i = 0; i < G.vexnum; i++)
+    {
+        visited1[i] = false; // 初始化全部为false
+    }
+
+    for (int i = 0; i < G.vexnum; i++)
+    {
+        if (!visited1[i])
+        {
+            DFS1(G, i); // 这里为了解决非连通图的遍历
+        }
+    }
+}
 
 int main()
 {
@@ -632,6 +989,25 @@ int main()
     // 1   2   6   3   4   7   8   5   9   10  11
     DFSTraverse(G);
 
-    
+    // 拓扑排序
+    ALGraph G1;
+    init3(G1);
+
+    // C   A   B   D   E
+    // 2   0   1   3   4
+    TopologicalSort(G1);
+
+    // 逆向拓扑排序
+    // 这里使用逆向邻接表
+    ALGraph G2;
+    init4(G2);
+
+    // E   D   B   A   C
+    // 4   3   1   0   2
+    TopologicalSortReverse(G2);
+
+    // DFS实现逆向拓扑排序(不使用逆向邻接表)
+    TopologicalSortReverse_DFS(G1);
+
     return 0;
 }
