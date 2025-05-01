@@ -1,5 +1,5 @@
 #cmake最低版本需求，不加入此行会受到警告信息，输入下载安装的cmake版本。
-cmake_minimum_required(VERSION 4.0.0)
+cmake_minimum_required(VERSION 3.31.4)
 #项目名称,即生成的.exe文件名称,这里的文件名称必需与launch.json的参数"program"的一致。
 #这个文件是保存在tasks.json的指定的目录，在本例中是build文件夹。
 #写CXX代表C++语言,写C代表C语言

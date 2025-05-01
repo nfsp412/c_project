@@ -16,7 +16,7 @@
         "environment": [],
         "externalConsole": true, //能够输入参数的调试方式,开启调试方法,直接F5,不使用cmake的方式
         "MIMode": "gdb",
-        "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe",
+        "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
         "setupCommands": [
           {
             "description": "Enable pretty-printing for gdb",
