@@ -87,6 +87,30 @@ int InsertTree(BiTree &T, int e)
     return 1;
 }
 
+// 插入元素,递归方法
+int BST_Insert(BiTree &T, int e)
+{
+    if (T == NULL)
+    {
+        T = (BiTree)calloc(1, sizeof(BSTNode));
+        T->data = e;
+        T->lchild = T->rchild = NULL;
+        return 1;
+    }
+    else if (e == T->data)
+    {
+        return 0; // 不能插入已存在的元素
+    }
+    else if (e < T->data)
+    {
+        return BST_Insert(T->lchild, e);
+    }
+    else if (e > T->data)
+    {
+        return BST_Insert(T->rchild, e);
+    }
+}
+
 /**
  * 二叉排序树的创建方法,核心还是插入元素的方法
  */
@@ -141,6 +165,27 @@ BSTNode *SearchTree(BiTree T, int e, BiTree &p)
     return T; // 返回T,实际上是返回的被找到的那个节点,所以如果没找到那么返回的T就是NULL了
 }
 
+// 查找,递归实现
+BSTNode *BSTSearch(BiTree T, int key)
+{
+    if (T == NULL)
+    {
+        return NULL;
+    }
+    if (key == T->data)
+    {
+        return T;
+    }
+    else if (key < T->data)
+    {
+        return BSTSearch(T->lchild, key);
+    }
+    else if (key > T->data)
+    {
+        return BSTSearch(T->rchild, key);
+    }
+}
+
 /**
  * 二叉排序树 删除某个节点
  */
@@ -150,53 +195,55 @@ void DeleteTree(BiTree &T, int e)
     {
         return;
     }
-    
-    //递归找到待删除节点位置
+
+    // 递归找到待删除节点位置
     if (T->data > e)
     {
         DeleteTree(T->lchild, e);
-    }else if (T->data < e)
+    }
+    else if (T->data < e)
     {
         DeleteTree(T->rchild, e);
-    }else{
-        //代表匹配到了待删除节点
+    }
+    else
+    {
+        // 代表匹配到了待删除节点
 
-        //待删除节点的左子节点为空,则右边顶上到待删除节点的位置
+        // 待删除节点的左子节点为空,则右边顶上到待删除节点的位置
         if (T->lchild == NULL)
         {
             BSTNode *t = T;
             T = T->rchild;
             free(t);
-        }else if (T->rchild == NULL)
+        }
+        else if (T->rchild == NULL)
         {
-            //待删除节点的右子节点为空,则左边顶上到待删除节点的位置
+            // 待删除节点的右子节点为空,则左边顶上到待删除节点的位置
             BSTNode *t = T;
             T = T->lchild;
             free(t);
-        }else{
-            //最麻烦的情况是待删除元素的左子节点和右子节点都不空,例如根节点往往就是这种情况
+        }
+        else
+        {
+            // 最麻烦的情况是待删除元素的左子节点和右子节点都不空,例如根节点往往就是这种情况
+            //找左子树最大或者右子树最小
 
-            //存储左子节点
+            // 存储左子节点
             BSTNode *t = T->lchild;
-            
-            //如何找到左边所有节点中的最大节点?只需要从左子节点开始一直向右遍历,直到null为止
+
+            // 如何找到左边所有节点中的最大节点?只需要从左子节点开始一直向右遍历,直到null为止
             while (t->rchild != NULL)
             {
                 t = t->rchild;
             }
-            
-            //删除策略: 左子节点所在的左子树中,找到最大值所在的节点,来顶上到待删除节点的位置
-            //至于顶上来的方法,实际上是先把被删除节点的数据data替换为找到的节点的data,然后调用删除方法删除掉找到的节点即可
-            //实际上是data值的替换而不是更改了引用
-            T->data = t->data;//
-            DeleteTree(T->lchild, t->data);            
-            
+
+            // 删除策略: 左子节点所在的左子树中,找到最大值所在的节点,来顶上到待删除节点的位置
+            // 至于顶上来的方法,实际上是先把被删除节点的数据data替换为找到的节点的data,然后调用删除方法删除掉找到的节点即可
+            // 实际上是data值的替换而不是更改了引用
+            T->data = t->data; //
+            DeleteTree(T->lchild, t->data);
         }
-        
-        
     }
-    
-    
 }
 
 int main()
@@ -228,9 +275,31 @@ int main()
     InOrder(T);
     printf("\n");
 
-    //删除元素
+    // 删除元素
     DeleteTree(T, 46);
 
+    // 校验
+    InOrder(T);
+    printf("\n");
+
+    // 查找,递归
+    newT = BSTSearch(T, 21);
+    if (newT)
+    {
+        // printf("%d\n", s->data);    // 18
+        printf("%d\n", newT->data); // 15
+    }
+    else
+    {
+        printf("not found \n");
+    }
+
+    // 插入,递归
+    BST_Insert(T, 30);
+
+    // 校验
+    InOrder(T);
+    printf("\n");
 
     return 0;
 }
