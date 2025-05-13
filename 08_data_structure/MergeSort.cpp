@@ -4,7 +4,7 @@
 #include <time.h>
 
 // 归并排序
-// kaoyan中要求两两排序
+// 考研中要求两两排序
 // 时间复杂度 O(nlogn) 最好最坏平均
 // 空间复杂度 O(n)
 // 稳定,算法复杂
@@ -50,7 +50,7 @@ void swap(int &a, int &b)
 void Merge(int *a, int low, int mid, int high)
 {
     static int b[10];
-    // 将a复制到b
+    // 将a数组复制到b数组
     int i, j, k;
     for (k = low; k <= high; k++)
     {
@@ -58,9 +58,10 @@ void Merge(int *a, int low, int mid, int high)
     }
 
     // 合并两个有序数组的方法
+    //再根据b的元素比较后覆盖回a数组,这样a数组就有序了
     for (i = low, j = mid + 1, k = i; i <= mid && j <= high; k++)
     {
-        if (b[i] <= b[j])
+        if (b[i] <= b[j])//相等时使用i对应的元素,保证算法稳定性
         {
             // 如果i的数据小,那应该把i取出来赋值,然后i++
             a[k] = b[i++];
@@ -71,6 +72,7 @@ void Merge(int *a, int low, int mid, int high)
         }
     }
     // 奇数个的场景下,剩余的元素最后也要添加到数组中
+    //i和j是沿用了上面的i,j
     while (i <= mid)
     {
         a[k++] = b[i++];
@@ -107,7 +109,7 @@ int main()
 
     MergeSort(L.elem, 0, L.len - 1);
 
-    PrintList(L);
+    PrintList(L);// 12 18 22 64 69 78 79 84 94 95
 
     return 0;
 }
