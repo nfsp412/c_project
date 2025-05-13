@@ -117,13 +117,14 @@ void QuickSort(int *arr, int low, int high)
         int pos = Partition(arr, low, high);
         // int pos = Partition_(arr, low, high);
         
-        printf("first\n");
-        for (int i = 0; i < 10; i++)
-        {
-            printf("%3d", arr[i]);
-        }
-        printf("\n");
-        return ;
+        // 没用注释掉
+        // printf("first\n");
+        // for (int i = 0; i < 10; i++)
+        // {
+        //     printf("%3d", arr[i]);
+        // }
+        // printf("\n");
+        // return ;
 
         // 针对左边和右边各自再次递归调用快排方法,分治
         QuickSort(arr, low, pos - 1);
@@ -144,7 +145,7 @@ int main()
 
     QuickSort(L.elem, 0, L.len - 1);
 
-    PrintList(L);
+    PrintList(L);//12 18 22 64 69 78 79 84 94 95
 
     return 0;
 }
