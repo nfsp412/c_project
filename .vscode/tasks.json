@@ -8,6 +8,8 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
+                "${fileDirname}/queue.cpp",
+                "${fileDirname}/function.h",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
