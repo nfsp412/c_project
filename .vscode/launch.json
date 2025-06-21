@@ -13,6 +13,14 @@
             "externalConsole": true,
             "MIMode": "lldb",
             "preLaunchTask": "task1"
+        },
+        {
+            "name": "launch2",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${command:cmake.launchTargetPath}",
+            "cwd": "${workspaceFolder}/build",
+            "MIMode": "lldb"
         }
     ]
 }
